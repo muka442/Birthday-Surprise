@@ -634,26 +634,38 @@
     </div>
 
 
-    <script>
-        /* ====================
-           AUDIO MANAGER
-           ==================== */
-        const bgMusic = new Audio('assets/bg2.m4a');
-        bgMusic.loop = true;
-        bgMusic.volume = 0.1;
+   <script>
+    /* ====================
+       AUDIO MANAGER
+       ==================== */
 
-        // Try autoplay
-        document.body.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                bgMusic.play().catch(e => console.log("Audio play failed", e));
-            }
-        }, { once: true });
+    // Background music (use mp3 for GitHub Pages)
+    const bgMusic = new Audio('audio/bg2.mp3'); // <-- put bg2.mp3 inside audio/ folder
+    bgMusic.loop = true;
+    bgMusic.volume = 0.1;
 
-        function playSound(name, volume = 1.0) {
-            const sfx = new Audio(`assets/${name}`);
-            sfx.volume = volume;
-            sfx.play().catch(e => console.log("Sound play error", e));
+    // Play on first user interaction (required for browser autoplay policies)
+    document.body.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play().catch(e => console.log("Audio play failed", e));
         }
+    }, { once: true });
+
+    // Generic sound effect function
+    function playSound(filename, volume = 1.0) {
+        const sfx = new Audio(`audio/${filename}`); // <-- all sfx go inside audio/ folder
+        sfx.volume = volume;
+        sfx.play().catch(e => console.log("Sound play error", e));
+    }
+
+    /* Usage examples (already in your code, just paths updated):
+        playSound('partypopper.mp3', 0.09);
+        playSound('candle lit.mp3', 0.09);
+        playSound('blow.mp3', 0.09);
+        playSound('balloon pop.mp3', 0.05);
+    */
+</script>
+
 
         /* ====================
            NAVIGATION & HELPERS
@@ -861,4 +873,5 @@
 </body>
 
 </html>
+
 
